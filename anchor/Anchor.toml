@@ -1,17 +1,17 @@
 [toolchain]
 
 [features]
-seeds = false
+resolution = true
 skip-lint = false
 
 [programs.localnet]
-solana_dapp_counter_frontend = "8TrNSwnTD286pbEYbGBEWq917DJuGTibzRVqCriBRpWg"
+solana_dapp_counter_frontend = "G3eJNm4Kwgf13zESTtES6DYFAkgsknBmpJsKRGJay2DN"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

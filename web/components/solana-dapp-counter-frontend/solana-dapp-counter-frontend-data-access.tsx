@@ -23,6 +23,11 @@ export function useSolanaDappCounterFrontendProgram() {
     () => getSolanaDappCounterFrontendProgramId(cluster.network as Cluster),
     [cluster]
   );
+  console.log(SolanaDappCounterFrontendIDL);
+  console.log(programId);
+  console.log(provider);
+
+
   const program = new Program(
     SolanaDappCounterFrontendIDL,
     programId,
@@ -63,6 +68,7 @@ export function useSolanaDappCounterFrontendProgram() {
   };
 }
 
+
 export function useSolanaDappCounterFrontendProgramAccount({
   account,
 }: {
@@ -70,11 +76,21 @@ export function useSolanaDappCounterFrontendProgramAccount({
 }) {
   const { cluster } = useCluster();
   const transactionToast = useTransactionToast();
-  const { program, accounts } = useSolanaDappCounterFrontendProgram();
+  const { program, accounts, connection } = useSolanaDappCounterFrontendProgram();
 
   const accountQuery = useQuery({
     queryKey: ['solana-dapp-counter-frontend', 'fetch', { cluster, account }],
-    queryFn: () => program.account.solanaDappCounterFrontend.fetch(account),
+    queryFn: async () => {
+      // STEP 1: Check if the account exists
+      const accountInfo = await connection.getAccountInfo(account);
+      if (!accountInfo) {
+        console.log('Counter account not initialized yet');
+        return null; // early return if account doesn't exist
+      }
+
+      // STEP 2: Fetch account data safely
+      return program.account.solanaDappCounterFrontend.fetch(account);
+    },
   });
 
   const closeMutation = useMutation({

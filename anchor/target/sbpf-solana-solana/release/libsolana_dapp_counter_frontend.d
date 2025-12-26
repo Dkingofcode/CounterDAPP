@@ -1,0 +1,1 @@
+/home/user/blockchain/solana/solana-counter-frontend-dapp/anchor/target/sbpf-solana-solana/release/libsolana_dapp_counter_frontend.rlib: /home/user/blockchain/solana/solana-counter-frontend-dapp/anchor/programs/solana-dapp-counter-frontend/src/lib.rs
